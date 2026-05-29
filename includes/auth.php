@@ -1,7 +1,9 @@
 <?php
 
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_strict_mode', 1);
+// Use error-suppressed ini_set so shared hosts that block session ini changes
+// don't throw a fatal error — session security is best-effort on restrictive hosts
+@ini_set('session.cookie_httponly', 1);
+@ini_set('session.use_strict_mode', 1);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
