@@ -1,10 +1,11 @@
 <?php
-require_once 'includes/auth.php';
+$inc = is_dir('Includes') ? 'Includes' : 'includes';
+require_once $inc . '/auth.php';
 
 if (is_logged_in()) {
-    header('Location: /unihub/dashboard.php');
+    header('Location: dashboard.php');
     exit;
 }
 
-header('Location: /unihub/login.php');
+header('Location: login.php');
 exit;

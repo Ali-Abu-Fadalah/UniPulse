@@ -87,8 +87,10 @@ if ($method === 'POST') {
         $stmt->execute([$id]);
         $products = $stmt->fetchAll();
         foreach ($products as $p) {
-            if ($p['image'] && strpos($p['image'], '/unihub/assets/uploads/marketplace/') === 0) {
-                $local_path = __DIR__ . '/..' . str_replace('/unihub', '', $p['image']);
+            if ($p['image']) {
+                $clean_path = str_replace('/unihub/', '', $p['image']);
+                $clean_path = ltrim($clean_path, '/');
+                $local_path = __DIR__ . '/../' . $clean_path;
                 if (file_exists($local_path)) {
                     @unlink($local_path);
                 }
@@ -122,8 +124,10 @@ if ($method === 'POST') {
         $stmt = $pdo->prepare('SELECT image FROM products WHERE id = ?');
         $stmt->execute([$id]);
         $product = $stmt->fetch();
-        if ($product && $product['image'] && strpos($product['image'], '/unihub/assets/uploads/marketplace/') === 0) {
-            $local_path = __DIR__ . '/..' . str_replace('/unihub', '', $product['image']);
+        if ($product && $product['image']) {
+            $clean_path = str_replace('/unihub/', '', $product['image']);
+            $clean_path = ltrim($clean_path, '/');
+            $local_path = __DIR__ . '/../' . $clean_path;
             if (file_exists($local_path)) {
                 @unlink($local_path);
             }

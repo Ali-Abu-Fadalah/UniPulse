@@ -1,6 +1,6 @@
 const Profile = (function () {
-
-    const API = '/unihub/modules/profile.php';
+    'use strict';
+    const API = 'modules/profile.php';
 
     async function load() {
         try {

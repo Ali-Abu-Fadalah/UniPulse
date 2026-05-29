@@ -1,7 +1,7 @@
 const Messages = (function () {
 
-    const API         = '/unihub/modules/messages.php';
-    const PROFILE_API = '/unihub/modules/profile.php';
+    const API         = 'modules/messages.php';
+    const PROFILE_API = 'modules/profile.php';
     let activeUserId   = null;
     let activeUserName = '';
     let refreshTimer   = null;
@@ -392,7 +392,7 @@ const Messages = (function () {
         };
 
         try {
-            var res = await fetch('/unihub/modules/profile.php?id=' + userId);
+            var res = await fetch('modules/profile.php?id=' + userId);
             if (!res.ok) throw new Error();
             var u = await res.json();
 

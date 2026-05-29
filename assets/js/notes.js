@@ -1,6 +1,6 @@
 const Notes = (function () {
-
-    const API = '/unihub/modules/notes.php';
+    'use strict';
+    const API = 'modules/notes.php';
     let editId = null;
 
     async function load() {

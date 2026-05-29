@@ -1,6 +1,7 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
+$inc = is_dir('Includes') ? 'Includes' : 'includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 require_login();
 require_admin();
@@ -21,10 +22,10 @@ $total_skills = $pdo->query('SELECT COUNT(*) FROM skills')->fetchColumn();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel — UniHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/unihub/assets/css/style.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/enhancements.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/tailwind.css?v=6">
-    <script src="/unihub/assets/js/theme.js?v=6"></script>
+    <link rel="stylesheet" href="assets/css/style.css?v=6">
+    <link rel="stylesheet" href="assets/css/enhancements.css?v=6">
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=6">
+    <script src="assets/js/theme.js?v=6"></script>
 </head>
 <body>
 
@@ -77,11 +78,11 @@ $total_skills = $pdo->query('SELECT COUNT(*) FROM skills')->fetchColumn();
                     <div class="role">Admin User</div>
                 </div>
             </div>
-            <a href="/unihub/dashboard.php" class="nav-item">
+            <a href="dashboard.php" class="nav-item">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955a1.126 1.126 0 0 1 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
                 <span>Back to App</span>
             </a>
-            <a href="/unihub/logout.php" class="logout-btn">
+            <a href="logout.php" class="logout-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" /></svg>
                 <span>Sign Out</span>
             </a>
@@ -248,7 +249,7 @@ $total_skills = $pdo->query('SELECT COUNT(*) FROM skills')->fetchColumn();
 
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-<script src="/unihub/assets/js/admin.js?v=<?= time() ?>"></script>
+<script src="assets/js/admin.js?v=<?= time() ?>"></script>
 <script>
     var sidebar = document.getElementById('sidebar');
     var overlay = document.getElementById('sidebar-overlay');
@@ -316,6 +317,6 @@ $total_skills = $pdo->query('SELECT COUNT(*) FROM skills')->fetchColumn();
     });
 </script>
 
-<script src="/unihub/assets/js/sidebar.js"></script>
+<script src="assets/js/sidebar.js"></script>
 </body>
 </html>

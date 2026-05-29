@@ -35,7 +35,7 @@ function verify_session() {
 
 function require_login() {
     if (!is_logged_in()) {
-        header('Location: /unihub/login.php');
+        header('Location: login.php');
         exit;
     }
 }
@@ -46,7 +46,7 @@ function is_admin() {
 
 function require_admin() {
     if (!is_admin()) {
-        header('Location: /unihub/dashboard.php');
+        header('Location: dashboard.php');
         exit;
     }
 }
@@ -65,6 +65,6 @@ function login_user($user) {
 function logout_user() {
     $_SESSION = [];
     session_destroy();
-    header('Location: /unihub/login.php');
+    header('Location: login.php');
     exit;
 }

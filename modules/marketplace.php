@@ -121,7 +121,7 @@ if ($method === 'POST') {
             }
 
             if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
-                $image_path = '/unihub/assets/uploads/marketplace/' . $filename;
+                $image_path = 'assets/uploads/marketplace/' . $filename;
             } else {
                 http_response_code(500);
                 echo json_encode(['error' => 'Failed to save product image']);
@@ -191,11 +191,13 @@ if ($method === 'POST') {
 
             if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
                 // Delete old image
-                if ($image_path && strpos($image_path, '/unihub/assets/uploads/marketplace/') === 0) {
-                    $local_path = __DIR__ . '/..' . str_replace('/unihub', '', $image_path);
+                if ($image_path) {
+                    $clean_path = str_replace('/unihub/', '', $image_path);
+                    $clean_path = ltrim($clean_path, '/');
+                    $local_path = __DIR__ . '/../' . $clean_path;
                     if (file_exists($local_path)) @unlink($local_path);
                 }
-                $image_path = '/unihub/assets/uploads/marketplace/' . $filename;
+                $image_path = 'assets/uploads/marketplace/' . $filename;
             }
         }
 
@@ -225,8 +227,10 @@ if ($method === 'POST') {
         }
 
         // Delete image file if exists
-        if ($product['image'] && strpos($product['image'], '/unihub/assets/uploads/marketplace/') === 0) {
-            $local_path = __DIR__ . '/..' . str_replace('/unihub', '', $product['image']);
+        if ($product['image']) {
+            $clean_path = str_replace('/unihub/', '', $product['image']);
+            $clean_path = ltrim($clean_path, '/');
+            $local_path = __DIR__ . '/../' . $clean_path;
             if (file_exists($local_path)) {
                 @unlink($local_path);
             }

@@ -145,7 +145,7 @@ if ($method === 'POST') {
         }
 
         if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
-            $avatar_path = '/unihub/assets/uploads/avatars/' . $filename;
+            $avatar_path = 'assets/uploads/avatars/' . $filename;
         }
     }
 

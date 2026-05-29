@@ -1,6 +1,6 @@
 const Marketplace = (function () {
-
-    const API = '/unihub/modules/marketplace.php';
+    'use strict';
+    const API = 'modules/marketplace.php';
     let currentView = 'browse'; // 'browse' or 'sell'
     let editId = null;
 

@@ -1,9 +1,10 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
+$inc = is_dir('Includes') ? 'Includes' : 'includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 if (is_logged_in()) {
-    header('Location: /unihub/dashboard.php');
+    header('Location: dashboard.php');
     exit;
 }
 
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($user) {
                 login_user($user);
-                header('Location: /unihub/dashboard.php');
+                header('Location: dashboard.php');
                 exit;
             }
         }
@@ -62,10 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="description" content="Create your UniHub account and join the campus portal.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/unihub/assets/css/style.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/enhancements.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/tailwind.css?v=6">
-    <script src="/unihub/assets/js/theme.js?v=6"></script>
+    <link rel="stylesheet" href="assets/css/style.css?v=6">
+    <link rel="stylesheet" href="assets/css/enhancements.css?v=6">
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=6">
+    <script src="assets/js/theme.js?v=6"></script>
 </head>
 <body>
 
@@ -155,12 +156,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="auth-footer">
-            Already have an account? <a href="/unihub/login.php">Sign in →</a>
+            Already have an account? <a href="login.php">Sign in →</a>
         </div>
 
     </div>
 </div>
 
-<script src="/unihub/assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

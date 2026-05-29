@@ -1,6 +1,6 @@
 const Events = (function () {
-
-    const API = '/unihub/modules/events.php';
+    'use strict';
+    const API = 'modules/events.php';
     let currentView = 'browse'; // 'browse' or 'host'
     let editId = null;
 

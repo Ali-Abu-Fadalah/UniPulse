@@ -1,6 +1,6 @@
 const Skills = (function () {
-
-    const API = '/unihub/modules/skills.php';
+    'use strict';
+    const API = 'modules/skills.php';
     let editId = null;
 
     async function load(query = '') {

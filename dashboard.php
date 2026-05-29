@@ -1,6 +1,7 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
+$inc = is_dir('Includes') ? 'Includes' : 'includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 require_login();
 
@@ -63,10 +64,10 @@ try {
             }
         }
     </script>
-    <link rel="stylesheet" href="/unihub/assets/css/style.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/enhancements.css?v=6">
-    <link rel="stylesheet" href="/unihub/assets/css/tailwind.css?v=6">
-    <script src="/unihub/assets/js/theme.js?v=6"></script>
+    <link rel="stylesheet" href="assets/css/style.css?v=6">
+    <link rel="stylesheet" href="assets/css/enhancements.css?v=6">
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=6">
+    <script src="assets/js/theme.js?v=6"></script>
 </head>
 <body>
 
@@ -163,7 +164,7 @@ try {
                     <div class="role"><?= is_admin() ? 'Admin User' : 'Student' ?></div>
                 </div>
             </div>
-            <a href="/unihub/logout.php" class="logout-btn">
+            <a href="logout.php" class="logout-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" /></svg>
                 <span>Sign Out</span>
             </a>
@@ -791,15 +792,15 @@ try {
     </div>
 </div>
 
-<script src="/unihub/assets/js/main.js?v=5"></script>
-<script src="/unihub/assets/js/notes.js?v=5"></script>
-<script src="/unihub/assets/js/skills.js?v=5"></script>
-<script src="/unihub/assets/js/messages.js?v=5"></script>
-<script src="/unihub/assets/js/profile.js?v=5"></script>
-<script src="/unihub/assets/js/marketplace.js?v=5"></script>
-<script src="/unihub/assets/js/events.js?v=5"></script>
+<script src="assets/js/main.js?v=6"></script>
+<script src="assets/js/notes.js?v=6"></script>
+<script src="assets/js/skills.js?v=6"></script>
+<script src="assets/js/messages.js?v=6"></script>
+<script src="assets/js/profile.js?v=6"></script>
+<script src="assets/js/marketplace.js?v=6"></script>
+<script src="assets/js/events.js?v=6"></script>
 <?php if (is_admin()): ?>
-<script src="/unihub/assets/js/admin.js?v=5"></script>
+<script src="assets/js/admin.js?v=6"></script>
 <?php endif; ?>
 <script>
 const TAB_LABELS = {
@@ -1077,7 +1078,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchNotifications() {
         try {
-            const res = await fetch('/unihub/modules/notifications.php');
+            const res = await fetch('modules/notifications.php');
             const data = await res.json();
             if (data.success) {
                 // Update badge
@@ -1130,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             const link = this.dataset.link;
                             
                             // Mark as read in backend
-                            await fetch('/unihub/modules/notifications.php', {
+                            await fetch('modules/notifications.php', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ action: 'mark_read', id: id })
@@ -1194,7 +1195,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mark All Read
     notifReadAll.addEventListener('click', async function(e) {
         e.stopPropagation();
-        const res = await fetch('/unihub/modules/notifications.php', {
+        const res = await fetch('modules/notifications.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'mark_read' })
@@ -1208,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear All
     notifClear.addEventListener('click', async function(e) {
         e.stopPropagation();
-        const res = await fetch('/unihub/modules/notifications.php', {
+        const res = await fetch('modules/notifications.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'clear' })
@@ -1225,6 +1226,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
-<script src="/unihub/assets/js/sidebar.js?v=5"></script>
+<script src="assets/js/sidebar.js?v=6"></script>
 </body>
 </html>

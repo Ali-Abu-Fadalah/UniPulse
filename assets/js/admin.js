@@ -1,6 +1,6 @@
 const Admin = (function () {
-
-    const API = '/unihub/modules/admin.php';
+    'use strict';
+    const API = 'modules/admin.php';
 
     // UI Helper: Custom Confirmation
     function showConfirm(message, onConfirm) {
