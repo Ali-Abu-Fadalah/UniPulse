@@ -78,40 +78,28 @@ if ($method === 'POST') {
             exit;
         }
 
-        // Delete dependencies first
         $pdo->prepare('DELETE FROM messages WHERE sender_id = ? OR receiver_id = ?')->execute([$id, $id]);
         $pdo->prepare('DELETE FROM skills WHERE user_id = ?')->execute([$id]);
         $pdo->prepare('DELETE FROM notes WHERE user_id = ?')->execute([$id]);
-        
-        // Cascade delete products (with images)
+
+        // Delete product image files before removing DB rows
         $stmt = $pdo->prepare('SELECT image FROM products WHERE user_id = ?');
         $stmt->execute([$id]);
-        $products = $stmt->fetchAll();
-        foreach ($products as $p) {
+        foreach ($stmt->fetchAll() as $p) {
             if ($p['image']) {
-                $clean_path = str_replace('/unihub/', '', $p['image']);
-                $clean_path = ltrim($clean_path, '/');
-                $local_path = __DIR__ . '/../' . $clean_path;
-                if (file_exists($local_path)) {
-                    @unlink($local_path);
-                }
+                $path = __DIR__ . '/../' . ltrim($p['image'], '/');
+                if (file_exists($path)) @unlink($path);
             }
         }
         $pdo->prepare('DELETE FROM products WHERE user_id = ?')->execute([$id]);
         
-        // Cascade delete events and RSVPs
         $stmt = $pdo->prepare('SELECT id FROM events WHERE user_id = ?');
         $stmt->execute([$id]);
-        $events = $stmt->fetchAll();
-        foreach ($events as $ev) {
+        foreach ($stmt->fetchAll() as $ev) {
             $pdo->prepare('DELETE FROM event_rsvps WHERE event_id = ?')->execute([$ev['id']]);
         }
         $pdo->prepare('DELETE FROM events WHERE user_id = ?')->execute([$id]);
-        
-        // Cascade delete RSVPs this user joined
         $pdo->prepare('DELETE FROM event_rsvps WHERE user_id = ?')->execute([$id]);
-
-        // Delete user
         $pdo->prepare('DELETE FROM users WHERE id = ?')->execute([$id]);
 
         echo json_encode(['success' => true]);
@@ -126,12 +114,8 @@ if ($method === 'POST') {
         $stmt->execute([$id]);
         $product = $stmt->fetch();
         if ($product && $product['image']) {
-            $clean_path = str_replace('/unihub/', '', $product['image']);
-            $clean_path = ltrim($clean_path, '/');
-            $local_path = __DIR__ . '/../' . $clean_path;
-            if (file_exists($local_path)) {
-                @unlink($local_path);
-            }
+            $path = __DIR__ . '/../' . ltrim($product['image'], '/');
+            if (file_exists($path)) @unlink($path);
         }
         $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
         echo json_encode(['success' => true]);
@@ -146,7 +130,7 @@ if ($method === 'POST') {
             exit;
         }
         $role = $body['role'] ?? 'user';
-        if ($role !== 'admin' && $role !== 'user') $role = 'user';
+        if (!in_array($role, ['admin', 'user'])) $role = 'user';
         
         $pdo->prepare('UPDATE users SET role = ? WHERE id = ?')->execute([$role, $id]);
         echo json_encode(['success' => true]);

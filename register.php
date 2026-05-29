@@ -8,8 +8,7 @@ if (is_logged_in()) {
     exit;
 }
 
-$error   = '';
-$success = '';
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $full_name        = trim($_POST['full_name'] ?? '');
@@ -95,10 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($error): ?>
             <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-
-        <?php if ($success): ?>
-            <div class="alert alert-success"><?= $success ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">

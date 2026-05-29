@@ -191,12 +191,9 @@ if ($method === 'POST') {
             if (!is_dir($dir)) mkdir($dir, 0755, true);
 
             if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
-                // Delete old image
                 if ($image_path) {
-                    $clean_path = str_replace('/unihub/', '', $image_path);
-                    $clean_path = ltrim($clean_path, '/');
-                    $local_path = __DIR__ . '/../' . $clean_path;
-                    if (file_exists($local_path)) @unlink($local_path);
+                    $path = __DIR__ . '/../' . ltrim($image_path, '/');
+                    if (file_exists($path)) @unlink($path);
                 }
                 $image_path = 'assets/uploads/marketplace/' . $filename;
             }
@@ -227,14 +224,9 @@ if ($method === 'POST') {
             exit;
         }
 
-        // Delete image file if exists
         if ($product['image']) {
-            $clean_path = str_replace('/unihub/', '', $product['image']);
-            $clean_path = ltrim($clean_path, '/');
-            $local_path = __DIR__ . '/../' . $clean_path;
-            if (file_exists($local_path)) {
-                @unlink($local_path);
-            }
+            $path = __DIR__ . '/../' . ltrim($product['image'], '/');
+            if (file_exists($path)) @unlink($path);
         }
 
         $stmt = $pdo->prepare('DELETE FROM products WHERE id = ? AND user_id = ?');

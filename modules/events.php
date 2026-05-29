@@ -27,7 +27,6 @@ if ($method === 'GET') {
 
     $q = trim($_GET['q'] ?? '');
     
-    // Select events, join with creator details, calculate RSVPs, and check if current user is RSVP'd
     $sql = '
         SELECT e.*, u.full_name as host_name, u.avatar as host_avatar,
                (SELECT COUNT(*) FROM event_rsvps WHERE event_id = e.id) as rsvp_count,
@@ -49,7 +48,6 @@ if ($method === 'GET') {
     
     $events = $stmt->fetchAll();
     
-    // Cast variables for type consistency in JSON
     foreach ($events as &$e) {
         $e['rsvp_count'] = (int)$e['rsvp_count'];
         $e['user_rsvp']  = (int)$e['user_rsvp'] > 0;
@@ -102,10 +100,8 @@ if ($method === 'POST') {
 
         $stmt = $pdo->prepare('INSERT INTO events (user_id, title, description, date, time, location) VALUES (?, ?, ?, ?, ?, ?)');
         $stmt->execute([$user_id, $title, $description, $date, $time, $location]);
-
         $id = $pdo->lastInsertId();
-        
-        // Fetch newly created event details
+
         $stmt = $pdo->prepare('
             SELECT e.*, u.full_name as host_name, 0 as rsvp_count, 0 as user_rsvp
             FROM events e
@@ -114,7 +110,6 @@ if ($method === 'POST') {
         ');
         $stmt->execute([$id]);
         $new_event = $stmt->fetch();
-        
         echo json_encode(['success' => true, 'event' => $new_event]);
         exit;
     }
@@ -143,12 +138,10 @@ if ($method === 'POST') {
         $rsvp = $stmt->fetch();
 
         if ($rsvp) {
-            // Leave event
             $stmt = $pdo->prepare('DELETE FROM event_rsvps WHERE id = ?');
             $stmt->execute([$rsvp['id']]);
             $is_attending = false;
         } else {
-            // Join event
             $stmt = $pdo->prepare('INSERT INTO event_rsvps (event_id, user_id) VALUES (?, ?)');
             $stmt->execute([$event_id, $user_id]);
             $is_attending = true;
@@ -240,9 +233,7 @@ if ($method === 'POST') {
             exit;
         }
 
-        // Delete RSVPs first
         $pdo->prepare('DELETE FROM event_rsvps WHERE event_id = ?')->execute([$id]);
-        // Delete event
         $pdo->prepare('DELETE FROM events WHERE id = ?')->execute([$id]);
 
         echo json_encode(['success' => true]);
