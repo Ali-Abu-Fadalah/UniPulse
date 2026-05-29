@@ -1,6 +1,7 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../includes/db.php';
+$inc = is_dir('../Includes') ? '../Includes' : '../includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 header('Content-Type: application/json');
 
@@ -162,7 +163,7 @@ if ($method === 'POST') {
                     $usr_stmt->execute([$user_id]);
                     $rsvp_name = $usr_stmt->fetchColumn() ?: 'Someone';
                     
-                    require_once '../includes/notif_helper.php';
+                    require_once $inc . '/notif_helper.php';
                     add_notification($pdo, $event['user_id'], 'rsvp', 'New Event RSVP', "$rsvp_name is attending your event '{$event['title']}'", '#events');
                 }
             } catch (Exception $e) {

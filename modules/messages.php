@@ -1,6 +1,7 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../includes/db.php';
+$inc = is_dir('../Includes') ? '../Includes' : '../includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 header('Content-Type: application/json');
 
@@ -95,7 +96,7 @@ if ($method === 'POST') {
 
     // Send notification to the receiver
     try {
-        require_once '../includes/notif_helper.php';
+        require_once $inc . '/notif_helper.php';
         $sender_stmt = $pdo->prepare('SELECT full_name FROM users WHERE id = ?');
         $sender_stmt->execute([$user_id]);
         $sender_name = $sender_stmt->fetchColumn() ?: 'Someone';

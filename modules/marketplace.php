@@ -1,6 +1,7 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../includes/db.php';
+$inc = is_dir('../Includes') ? '../Includes' : '../includes';
+require_once $inc . '/auth.php';
+require_once $inc . '/db.php';
 
 header('Content-Type: application/json');
 

@@ -11,7 +11,8 @@ if (php_sapi_name() !== 'cli') {
     die("Access Denied: This utility can only be run via the Command Line (CLI).\n");
 }
 
-require_once __DIR__ . '/includes/db.php';
+$inc = is_dir(__DIR__ . '/Includes') ? __DIR__ . '/Includes' : __DIR__ . '/includes';
+require_once $inc . '/db.php';
 
 echo "==========================================\n";
 echo "       UniHub Admin CLI Reset Tool        \n";
