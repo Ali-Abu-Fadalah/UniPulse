@@ -1,0 +1,18 @@
+# Node.js / Tailwind build
+node_modules/
+.npm
+
+# Local environment / database
+.env
+.env.local
+database.db
+*.db.bak
+
+# IDE and AI Tooling
+.gemini/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom UniHub utilities ────────────────────── */
+@layer utilities {
+  .glass {
+    background: var(--glass-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-sidebar {
+    background: var(--glass-sidebar);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--text-gradient-from), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4);
+  }
+}
+
+@layer components {
+  .btn-tw-primary {
+    @apply inline-flex items-center justify-content-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm text-white cursor-pointer transition-all duration-200;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 4px 20px rgba(124,109,255,0.4);
+  }
+  .btn-tw-primary:hover {
+    @apply -translate-y-0.5;
+    filter: brightness(1.1);
+    box-shadow: 0 6px 28px rgba(124,109,255,0.55);
+  }
+}
